@@ -49,7 +49,7 @@
     loss_interest: "loss_of_interest",
     anxiety_worry: "excessive_worry",
     irritability: "irritability",
-    guilt_worthlessness: "guilt_worthlessness",
+    guilt_worthlessness: "feelings_of_worthlessness", // align with data.json
     hopelessness: "hopelessness",
     fatigue: "fatigue",
     sleep_problems: "sleep_problems",
@@ -176,11 +176,12 @@
   }
 
   function categorizeScore(total) {
-    if (total <= 4) return { label: "minimal", color: "#60a5fa" };
-    if (total <= 9) return { label: "mild", color: "#34d399" };
-    if (total <= 14) return { label: "moderate", color: "#f59e0b" };
-    if (total <= 19) return { label: "moderately severe", color: "#f97316" };
-    return { label: "severe", color: "#ef4444" };
+    // Use darker colors for sufficient contrast on light background
+    if (total <= 4) return { label: "minimal", color: "#1d4ed8" }; // blue-700
+    if (total <= 9) return { label: "mild", color: "#166534" }; // green-800
+    if (total <= 14) return { label: "moderate", color: "#b45309" }; // amber-700
+    if (total <= 19) return { label: "moderately severe", color: "#c2410c" }; // orange-700
+    return { label: "severe", color: "#b91c1c" }; // red-700
   }
 
   function buildGuidance(total, riskFlag) {
