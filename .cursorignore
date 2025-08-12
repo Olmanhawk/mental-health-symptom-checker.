@@ -1,0 +1,56 @@
+# Zero-trust baseline: aggressively ignore to prevent data leakage
+# Adjust as needed during the audit to selectively reveal context
+
+# VCS and editor metadata
+.git/
+.github/
+.gitignore
+.gitattributes
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Dependencies and build artifacts
+node_modules/
+build/
+dist/
+.esbuild/
+.next/
+.cache/
+coverage/
+.playwright-report/
+playwright-report/
+playwright/.cache/
+.test-results/
+test-results/
+
+# Environment and credentials
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+.npmrc
+.pnpm-store/
+.pnp.*
+
+# Local data and logs
+*.log
+logs/
+.tmp/
+.temp/
+*.sqlite
+*.db
+*.db-journal
+
+# App-specific generated or large assets (review before removing)
+public/assets/**
+assets/**
+
+# Optional: Ignore large JSON datasets during initial audit pass
+# Un-comment if these contain sensitive data not needed for rules bootstrapping
+# data.json
+# docs/data.json
