@@ -25,6 +25,47 @@
         </p>
 
         <form id="checkerForm" novalidate>
+          <fieldset class="form-section">
+            <legend>Quick symptom checklist (optional)</legend>
+            <p class="muted small">Select any symptoms that apply. These are grouped to help you scan quickly.</p>
+
+            <details class="category" open>
+              <summary>Emotional</summary>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="low_mood" /><span>Low mood</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="loss_interest" /><span>Loss of interest</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="anxiety_worry" /><span>Anxiety or worry</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="irritability" /><span>Irritability</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="guilt_worthlessness" /><span>Guilt or worthlessness</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="hopelessness" /><span>Hopelessness</span></label>
+              </div>
+            </details>
+
+            <details class="category">
+              <summary>Physical</summary>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="sym_physical" value="fatigue" /><span>Fatigue/low energy</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="sleep_problems" /><span>Sleep problems</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="appetite_changes" /><span>Appetite changes</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="headaches" /><span>Headaches</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="muscle_tension" /><span>Muscle tension</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="stomach_issues" /><span>Stomach issues</span></label>
+              </div>
+            </details>
+
+            <details class="category">
+              <summary>Behavioral</summary>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="social_withdrawal" /><span>Social withdrawal</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="restlessness" /><span>Restlessness</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="avoidance" /><span>Avoidance/procrastination</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="concentration" /><span>Difficulty concentrating</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="substance_use" /><span>Increased substance use</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="tearfulness" /><span>Tearfulness</span></label>
+              </div>
+            </details>
+          </fieldset>
+
           <fieldset class="form-section" aria-describedby="scaleHelp">
             <legend>Over the past 2 weeks, how often have you been bothered by any of the following problems?</legend>
             <p id="scaleHelp" class="muted small">
