@@ -6,8 +6,119 @@
   const scoreSummary = document.getElementById("scoreSummary");
   const guidance = document.getElementById("guidance");
   const formError = document.getElementById("formError");
+  const matchesContainer = document.getElementById("matches");
 
   if (!form) return;
+
+  // Disorders dataset (can be extended)
+  const DISORDERS = [
+    {
+      name: "Generalized Anxiety Disorder (GAD)",
+      symptoms: ["excessive_worry", "restlessness", "fatigue", "difficulty_concentrating"],
+      description:
+        "GAD is characterized by persistent and excessive worry about a number of different things...",
+      early_signs: "...",
+      threat_assessment: "...",
+    },
+    {
+      name: "Major Depressive Disorder (MDD)",
+      symptoms: ["depressed_mood", "loss_of_interest", "changes_in_appetite", "fatigue"],
+      description:
+        "MDD is a mood disorder that causes a persistent feeling of sadness and loss of interest...",
+      early_signs: "...",
+      threat_assessment: "...",
+    },
+  ];
+
+  // Map UI checkbox values to canonical symptom codes used by DISORDERS
+  const CHECKBOX_TO_CANON = {
+    low_mood: "depressed_mood",
+    loss_interest: "loss_of_interest",
+    anxiety_worry: "excessive_worry",
+    irritability: "irritability",
+    guilt_worthlessness: "guilt_worthlessness",
+    hopelessness: "hopelessness",
+    fatigue: "fatigue",
+    sleep_problems: "sleep_problems",
+    appetite_changes: "changes_in_appetite",
+    headaches: "headaches",
+    muscle_tension: "muscle_tension",
+    stomach_issues: "stomach_issues",
+    social_withdrawal: "social_withdrawal",
+    restlessness: "restlessness",
+    avoidance: "avoidance",
+    concentration: "difficulty_concentrating",
+    substance_use: "substance_use",
+    tearfulness: "tearfulness",
+  };
+
+  function getSelectedCheckboxSymptoms() {
+    const checked = Array.from(
+      form.querySelectorAll('input[type="checkbox"][name^="sym_"]:checked')
+    );
+    const canonical = new Set();
+    const raw = new Set();
+    for (const input of checked) {
+      const rawValue = input.value;
+      raw.add(rawValue);
+      const canon = CHECKBOX_TO_CANON[rawValue];
+      if (canon) canonical.add(canon);
+    }
+    return { canonical, raw };
+  }
+
+  function computeMatches(selectedCanonical) {
+    const matches = [];
+    for (const disorder of DISORDERS) {
+      const required = disorder.symptoms;
+      let matchedCount = 0;
+      const matchedSyms = [];
+      for (const sym of required) {
+        if (selectedCanonical.has(sym)) {
+          matchedCount += 1;
+          matchedSyms.push(sym);
+        }
+      }
+      if (matchedCount > 0) {
+        const percent = Math.round((matchedCount / required.length) * 100);
+        matches.push({
+          disorder,
+          matchedCount,
+          total: required.length,
+          percent,
+          matchedSyms,
+        });
+      }
+    }
+    matches.sort((a, b) => b.matchedCount - a.matchedCount || b.percent - a.percent);
+    return matches;
+  }
+
+  function renderMatches(matchList) {
+    if (!matchesContainer) return;
+    if (!matchList || matchList.length === 0) {
+      matchesContainer.innerHTML = "";
+      return;
+    }
+    const listItems = matchList
+      .map(({ disorder, matchedCount, total, percent, matchedSyms }) => {
+        const tags = matchedSyms
+          .map((s) => `<span class="tag">${s.replaceAll("_", " ")}</span>`)
+          .join(" ");
+        return (
+          `<li class="match-item">` +
+          `<div class="match-header">` +
+          `<h3 class="match-title">${disorder.name}</h3>` +
+          `<span class="match-score">${matchedCount}/${total} • ${percent}% match</span>` +
+          `</div>` +
+          `<div class="tags">${tags}</div>` +
+          `<p class="desc">${disorder.description}</p>` +
+          `</li>`
+        );
+      })
+      .join("");
+    matchesContainer.innerHTML = `<h3>Possible related areas</h3><ul class="match-list">${listItems}</ul>`;
+  }
 
   const questionNames = [
     "q1",
@@ -117,6 +228,11 @@
       }
     }
 
+    // Compute matches from optional checklist
+    const selected = getSelectedCheckboxSymptoms();
+    const matchList = computeMatches(selected.canonical);
+    renderMatches(matchList);
+
     const category = categorizeScore(total);
 
     scoreSummary.innerHTML = `Total score: <strong style="color:${category.color}">${total} / 27</strong> &ndash; ${category.label}`;
@@ -131,6 +247,7 @@
     scoreSummary.textContent = "";
     guidance.textContent = "";
     formError.textContent = "";
+    if (matchesContainer) matchesContainer.innerHTML = "";
     window.setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 0);
   });
 })();
