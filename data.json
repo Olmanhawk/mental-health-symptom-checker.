@@ -2,17 +2,94 @@
   "disorders": [
     {
       "name": "Generalized Anxiety Disorder (GAD)",
-      "symptoms": ["excessive_worry", "restlessness", "fatigue", "difficulty_concentrating"],
-      "description": "GAD is characterized by persistent and excessive worry about a number of different things...",
-      "early_signs": "...",
-      "threat_assessment": "..."
+      "symptoms": [
+        "excessive_worry",
+        "restlessness",
+        "fatigue",
+        "difficulty_concentrating",
+        "irritability",
+        "muscle_tension",
+        "sleep_problems"
+      ],
+      "description": "GAD involves persistent, hard-to-control worry occurring more days than not about various domains (work, health, family) and is associated with physical and cognitive symptoms.",
+      "early_signs": [
+        "Frequent worry that is difficult to control",
+        "Restlessness or feeling keyed up",
+        "Easily fatigued",
+        "Irritability",
+        "Muscle tension",
+        "Sleep disturbance (difficulty falling/staying asleep)"
+      ],
+      "threat_assessment": {
+        "risk_factors": [
+          "Family history of anxiety or related disorders",
+          "Recent or chronic stressors (work, caregiving, financial)",
+          "History of trauma",
+          "Chronic medical conditions",
+          "Substance use",
+          "Perfectionism or high self-criticism"
+        ],
+        "when_to_seek_help": [
+          "Worry present most days for 6+ months",
+          "Symptoms interfere with work, school, or relationships",
+          "Panic-like symptoms or escalating physical symptoms",
+          "Using alcohol or drugs to cope",
+          "Any thoughts of self-harm or feeling unsafe"
+        ],
+        "emergency_information": [
+          "United States: Call or text 988 for the Suicide & Crisis Lifeline, or chat at 988lifeline.org",
+          "Text HOME to 741741 to reach a Crisis Text Line counselor",
+          "Outside the U.S.: Find international helplines at opencounseling.com/suicide-hotlines",
+          "If in immediate danger, call your local emergency number"
+        ]
+      }
     },
     {
       "name": "Major Depressive Disorder (MDD)",
-      "symptoms": ["depressed_mood", "loss_of_interest", "changes_in_appetite", "fatigue"],
-      "description": "MDD is a mood disorder that causes a persistent feeling of sadness and loss of interest...",
-      "early_signs": "...",
-      "threat_assessment": "..."
+      "symptoms": [
+        "depressed_mood",
+        "loss_of_interest",
+        "changes_in_appetite",
+        "sleep_problems",
+        "fatigue",
+        "difficulty_concentrating",
+        "feelings_of_worthlessness",
+        "recurrent_thoughts_of_death"
+      ],
+      "description": "MDD is a mood disorder featuring persistent low mood and/or loss of interest or pleasure, accompanied by changes in sleep, appetite, energy, concentration, and self-worth.",
+      "early_signs": [
+        "Persistent sadness or emptiness",
+        "Loss of interest or pleasure (anhedonia)",
+        "Changes in appetite or weight",
+        "Sleep disturbance (insomnia or hypersomnia)",
+        "Fatigue or loss of energy",
+        "Difficulty concentrating or making decisions",
+        "Feelings of worthlessness or excessive guilt",
+        "Recurrent thoughts of death or self-harm"
+      ],
+      "threat_assessment": {
+        "risk_factors": [
+          "Family history of depression or bipolar disorder",
+          "Recent loss, trauma, or major life changes",
+          "Chronic medical illness or pain",
+          "Previous depressive episodes",
+          "Substance use",
+          "Social isolation"
+        ],
+        "when_to_seek_help": [
+          "Symptoms present most days for 2+ weeks",
+          "Difficulty functioning at work, school, or home",
+          "Thoughts of self-harm or suicide",
+          "Inability to care for yourself or dependents",
+          "Psychotic symptoms (hallucinations or delusions)"
+        ],
+        "emergency_information": [
+          "United States: Call or text 988 for the Suicide & Crisis Lifeline, or chat at 988lifeline.org",
+          "Text HOME to 741741 to reach a Crisis Text Line counselor",
+          "Outside the U.S.: Find international helplines at opencounseling.com/suicide-hotlines",
+          "If in immediate danger, call your local emergency number"
+        ]
+      }
     }
   ]
 }
