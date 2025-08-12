@@ -43,7 +43,6 @@
       .catch(() => {});
   } catch (_) {}
 
-
   // Map UI checkbox values to canonical symptom codes used by DISORDERS
   const CHECKBOX_TO_CANON = {
     low_mood: "depressed_mood",
@@ -66,6 +65,14 @@
     tearfulness: "tearfulness",
   };
 
+  function slugifyName(name) {
+    return String(name)
+      .toLowerCase()
+      .replace(/\([^)]*\)/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
   function getSelectedCheckboxSymptoms() {
     const checked = Array.from(
       form.querySelectorAll('input[type="checkbox"][name^="sym_"]:checked')
@@ -84,7 +91,7 @@
   function computeMatches(selectedCanonical) {
     const matches = [];
     for (const disorder of DISORDERS) {
-      const required = disorder.symptoms;
+      const required = disorder.symptoms || [];
       let matchedCount = 0;
       const matchedSyms = [];
       for (const sym of required) {
@@ -119,6 +126,8 @@
         const tags = matchedSyms
           .map((s) => `<span class="tag">${s.replaceAll("_", " ")}</span>`)
           .join(" ");
+        const slug = slugifyName(disorder.name);
+        const link = `details.html?d=${encodeURIComponent(slug)}`;
         return (
           `<li class="match-item">` +
           `<div class="match-header">` +
@@ -127,6 +136,7 @@
           `</div>` +
           `<div class="tags">${tags}</div>` +
           `<p class="desc">${disorder.description}</p>` +
+          `<p><a class="btn" href="${link}">Learn more</a></p>` +
           `</li>`
         );
       })
