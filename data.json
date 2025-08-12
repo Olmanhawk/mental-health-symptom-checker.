@@ -1,0 +1,18 @@
+{
+  "disorders": [
+    {
+      "name": "Generalized Anxiety Disorder (GAD)",
+      "symptoms": ["excessive_worry", "restlessness", "fatigue", "difficulty_concentrating"],
+      "description": "GAD is characterized by persistent and excessive worry about a number of different things...",
+      "early_signs": "...",
+      "threat_assessment": "..."
+    },
+    {
+      "name": "Major Depressive Disorder (MDD)",
+      "symptoms": ["depressed_mood", "loss_of_interest", "changes_in_appetite", "fatigue"],
+      "description": "MDD is a mood disorder that causes a persistent feeling of sadness and loss of interest...",
+      "early_signs": "...",
+      "threat_assessment": "..."
+    }
+  ]
+}

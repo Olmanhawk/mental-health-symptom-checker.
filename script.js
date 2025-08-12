@@ -10,8 +10,8 @@
 
   if (!form) return;
 
-  // Disorders dataset (can be extended)
-  const DISORDERS = [
+  // Disorders dataset (loaded from data.json with fallback)
+  const DEFAULT_DISORDERS = [
     {
       name: "Generalized Anxiety Disorder (GAD)",
       symptoms: ["excessive_worry", "restlessness", "fatigue", "difficulty_concentrating"],
@@ -29,6 +29,20 @@
       threat_assessment: "...",
     },
   ];
+  let DISORDERS = DEFAULT_DISORDERS;
+
+  // Attempt to load data.json when served via HTTP; falls back silently if unavailable
+  try {
+    fetch('data.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((json) => {
+        if (json && Array.isArray(json.disorders)) {
+          DISORDERS = json.disorders;
+        }
+      })
+      .catch(() => {});
+  } catch (_) {}
+
 
   // Map UI checkbox values to canonical symptom codes used by DISORDERS
   const CHECKBOX_TO_CANON = {
