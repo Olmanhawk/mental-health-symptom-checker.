@@ -80,8 +80,8 @@ function analyzeSymptoms(event) {
   matches.sort((a, b) => b.score - a.score);
 
   // 4) Call separate function to display results
-  if (typeof window.displayMatchedDisorders === 'function') {
-    window.displayMatchedDisorders(matches);
+  if (typeof window.displayResults === 'function') {
+    window.displayResults(matches);
   } else {
     // Placeholder to avoid runtime errors until UI renderer is implemented
     console.info('Matched disorders:', matches);
@@ -96,3 +96,118 @@ window.addEventListener('DOMContentLoaded', () => {
   const analyzeBtn = document.getElementById('analyzeBtn');
   if (analyzeBtn) analyzeBtn.addEventListener('click', analyzeSymptoms);
 });
+
+function displayResults(matchedDisorders) {
+  const resultsSection = document.getElementById('results');
+  if (!resultsSection) {
+    console.warn('Results section not found');
+    return;
+  }
+
+  // 1) Clear previous results
+  resultsSection.innerHTML = '';
+
+  // 5) Prominent disclaimer at the top
+  const disclaimer = document.createElement('p');
+  disclaimer.innerHTML = '<strong>This is not a medical diagnosis. This tool is for informational purposes only and you must consult a qualified healthcare professional for an accurate diagnosis.</strong>';
+  resultsSection.appendChild(disclaimer);
+
+  if (!Array.isArray(matchedDisorders) || matchedDisorders.length === 0) {
+    // 2) Empty state message
+    const emptyMsg = document.createElement('p');
+    emptyMsg.textContent = 'No specific disorders match the selected symptoms. Please consult a healthcare professional for guidance.';
+    resultsSection.appendChild(emptyMsg);
+    resultsSection.hidden = false;
+    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  // 3) Render each matched disorder
+  matchedDisorders.forEach((item) => {
+    const { disorder, score, total, matched } = item;
+
+    const card = document.createElement('section');
+    card.className = 'card';
+
+    const title = document.createElement('h3');
+    title.textContent = disorder.name || 'Unknown';
+    card.appendChild(title);
+
+    if (disorder.description) {
+      const p = document.createElement('p');
+      p.textContent = disorder.description;
+      card.appendChild(p);
+    }
+
+    if (disorder.early_signs) {
+      const wrap = document.createElement('div');
+      const h = document.createElement('h4');
+      h.textContent = 'Early signs';
+      wrap.appendChild(h);
+      if (Array.isArray(disorder.early_signs)) {
+        const ul = document.createElement('ul');
+        disorder.early_signs.forEach((s) => {
+          const li = document.createElement('li');
+          li.textContent = s;
+          ul.appendChild(li);
+        });
+        wrap.appendChild(ul);
+      } else {
+        const p = document.createElement('p');
+        p.textContent = String(disorder.early_signs);
+        wrap.appendChild(p);
+      }
+      card.appendChild(wrap);
+    }
+
+    if (disorder.threat_assessment) {
+      const ta = disorder.threat_assessment;
+      const wrap = document.createElement('div');
+      const h = document.createElement('h4');
+      h.textContent = 'Threat assessment';
+      wrap.appendChild(h);
+
+      if (ta && typeof ta === 'object' && !Array.isArray(ta)) {
+        const { risk_factors, when_to_seek_help, emergency_information } = ta;
+        if (Array.isArray(risk_factors) && risk_factors.length) {
+          const h3 = document.createElement('h5');
+          h3.textContent = 'Risk factors';
+          wrap.appendChild(h3);
+          const ul = document.createElement('ul');
+          risk_factors.forEach((s) => { const li = document.createElement('li'); li.textContent = s; ul.appendChild(li); });
+          wrap.appendChild(ul);
+        }
+        if (Array.isArray(when_to_seek_help) && when_to_seek_help.length) {
+          const h3 = document.createElement('h5');
+          h3.textContent = 'When to seek help';
+          wrap.appendChild(h3);
+          const ul = document.createElement('ul');
+          when_to_seek_help.forEach((s) => { const li = document.createElement('li'); li.textContent = s; ul.appendChild(li); });
+          wrap.appendChild(ul);
+        }
+        if (Array.isArray(emergency_information) && emergency_information.length) {
+          const h3 = document.createElement('h5');
+          h3.textContent = 'Emergency information';
+          wrap.appendChild(h3);
+          const ul = document.createElement('ul');
+          emergency_information.forEach((s) => { const li = document.createElement('li'); li.textContent = s; ul.appendChild(li); });
+          wrap.appendChild(ul);
+        }
+      } else {
+        const p = document.createElement('p');
+        p.textContent = String(ta);
+        wrap.appendChild(p);
+      }
+
+      card.appendChild(wrap);
+    }
+
+    resultsSection.appendChild(card);
+  });
+
+  // 4) Reveal results and scroll into view
+  resultsSection.hidden = false;
+  resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.displayResults = displayResults;
