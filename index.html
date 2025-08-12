@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MindCheck – Mental Health Symptom Checker</title>
+    <meta name="description" content="A simple, private, and responsive mental health symptom checker. Not a diagnostic tool." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">MindCheck</h1>
+        <p class="site-subtitle">Mental Health Symptom Checker</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>How have you been feeling?</h2>
+        <p class="muted disclaimer">
+          This tool is for information only and is <strong>not a medical diagnosis</strong>.
+          If you are in crisis or considering harming yourself or others, call your local
+          emergency number immediately.
+        </p>
+
+        <form id="checkerForm" novalidate>
+          <fieldset class="form-section">
+            <legend>Quick symptom checklist (optional)</legend>
+            <p class="muted small">Select any symptoms that apply. These are grouped to help you scan quickly.</p>
+
+            <details class="category" open>
+              <summary>Emotional</summary>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="low_mood" /><span>Low mood</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="loss_interest" /><span>Loss of interest</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="anxiety_worry" /><span>Anxiety or worry</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="irritability" /><span>Irritability</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="guilt_worthlessness" /><span>Guilt or worthlessness</span></label>
+                <label class="chip"><input type="checkbox" name="sym_emotional" value="hopelessness" /><span>Hopelessness</span></label>
+              </div>
+            </details>
+
+            <details class="category">
+              <summary>Physical</summary>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="sym_physical" value="fatigue" /><span>Fatigue/low energy</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="sleep_problems" /><span>Sleep problems</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="appetite_changes" /><span>Appetite changes</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="headaches" /><span>Headaches</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="muscle_tension" /><span>Muscle tension</span></label>
+                <label class="chip"><input type="checkbox" name="sym_physical" value="stomach_issues" /><span>Stomach issues</span></label>
+              </div>
+            </details>
+
+            <details class="category">
+              <summary>Behavioral</summary>
+              <div class="chip-grid">
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="social_withdrawal" /><span>Social withdrawal</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="restlessness" /><span>Restlessness</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="avoidance" /><span>Avoidance/procrastination</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="concentration" /><span>Difficulty concentrating</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="substance_use" /><span>Increased substance use</span></label>
+                <label class="chip"><input type="checkbox" name="sym_behavioral" value="tearfulness" /><span>Tearfulness</span></label>
+              </div>
+            </details>
+          </fieldset>
+
+          <fieldset class="form-section" aria-describedby="scaleHelp">
+            <legend>Over the past 2 weeks, how often have you been bothered by any of the following problems?</legend>
+            <p id="scaleHelp" class="muted small">
+              0 = Not at all, 1 = Several days, 2 = More than half the days, 3 = Nearly every day
+            </p>
+
+            <div class="question" role="radiogroup" aria-labelledby="q1-label">
+              <div id="q1-label" class="question-title">Little interest or pleasure in doing things</div>
+              <div class="scale">
+                <label><input type="radio" name="q1" value="0" required /> 0</label>
+                <label><input type="radio" name="q1" value="1" /> 1</label>
+                <label><input type="radio" name="q1" value="2" /> 2</label>
+                <label><input type="radio" name="q1" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q2-label">
+              <div id="q2-label" class="question-title">Feeling down, depressed, or hopeless</div>
+              <div class="scale">
+                <label><input type="radio" name="q2" value="0" required /> 0</label>
+                <label><input type="radio" name="q2" value="1" /> 1</label>
+                <label><input type="radio" name="q2" value="2" /> 2</label>
+                <label><input type="radio" name="q2" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q3-label">
+              <div id="q3-label" class="question-title">Feeling nervous, anxious, or on edge</div>
+              <div class="scale">
+                <label><input type="radio" name="q3" value="0" required /> 0</label>
+                <label><input type="radio" name="q3" value="1" /> 1</label>
+                <label><input type="radio" name="q3" value="2" /> 2</label>
+                <label><input type="radio" name="q3" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q4-label">
+              <div id="q4-label" class="question-title">Trouble relaxing or feeling restless</div>
+              <div class="scale">
+                <label><input type="radio" name="q4" value="0" required /> 0</label>
+                <label><input type="radio" name="q4" value="1" /> 1</label>
+                <label><input type="radio" name="q4" value="2" /> 2</label>
+                <label><input type="radio" name="q4" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q5-label">
+              <div id="q5-label" class="question-title">Trouble falling or staying asleep, or sleeping too much</div>
+              <div class="scale">
+                <label><input type="radio" name="q5" value="0" required /> 0</label>
+                <label><input type="radio" name="q5" value="1" /> 1</label>
+                <label><input type="radio" name="q5" value="2" /> 2</label>
+                <label><input type="radio" name="q5" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q6-label">
+              <div id="q6-label" class="question-title">Feeling tired or having little energy</div>
+              <div class="scale">
+                <label><input type="radio" name="q6" value="0" required /> 0</label>
+                <label><input type="radio" name="q6" value="1" /> 1</label>
+                <label><input type="radio" name="q6" value="2" /> 2</label>
+                <label><input type="radio" name="q6" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q7-label">
+              <div id="q7-label" class="question-title">Poor appetite or overeating</div>
+              <div class="scale">
+                <label><input type="radio" name="q7" value="0" required /> 0</label>
+                <label><input type="radio" name="q7" value="1" /> 1</label>
+                <label><input type="radio" name="q7" value="2" /> 2</label>
+                <label><input type="radio" name="q7" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q8-label">
+              <div id="q8-label" class="question-title">Trouble concentrating on things</div>
+              <div class="scale">
+                <label><input type="radio" name="q8" value="0" required /> 0</label>
+                <label><input type="radio" name="q8" value="1" /> 1</label>
+                <label><input type="radio" name="q8" value="2" /> 2</label>
+                <label><input type="radio" name="q8" value="3" /> 3</label>
+              </div>
+            </div>
+
+            <div class="question" role="radiogroup" aria-labelledby="q9-label">
+              <div id="q9-label" class="question-title">Thoughts that you would be better off dead or of hurting yourself</div>
+              <div class="scale">
+                <label><input type="radio" name="q9" value="0" required /> 0</label>
+                <label><input type="radio" name="q9" value="1" /> 1</label>
+                <label><input type="radio" name="q9" value="2" /> 2</label>
+                <label><input type="radio" name="q9" value="3" /> 3</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Check my results</button>
+            <button type="reset" class="btn">Reset</button>
+            <output id="formError" class="error" role="alert" aria-live="polite"></output>
+          </div>
+        </form>
+      </section>
+
+      <section id="results" class="card results" hidden>
+        <h2>Your results</h2>
+        <p id="scoreSummary" class="score"></p>
+        <div id="guidance" class="guidance"></div>
+        <div id="matches" class="matches" aria-live="polite"></div>
+        <details class="resources">
+          <summary>Support resources</summary>
+          <ul>
+            <li>If you are in the United States, call or text <strong>988</strong> for the Suicide & Crisis Lifeline, or chat at <a href="https://988lifeline.org/" target="_blank" rel="noopener">988lifeline.org</a>.</li>
+            <li>Text <strong>HOME</strong> to <strong>741741</strong> to reach a Crisis Text Line counselor.</li>
+            <li>Outside the U.S., find international helplines at <a href="https://www.opencounseling.com/suicide-hotlines" target="_blank" rel="noopener">OpenCounseling</a>.</li>
+            <li>For immediate danger, call your local emergency number.</li>
+          </ul>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted small">Your responses are processed only in your browser and are not saved.</p>
+        <p class="muted small">This tool does not provide medical advice. Consider discussing your results with a licensed professional.</p>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
